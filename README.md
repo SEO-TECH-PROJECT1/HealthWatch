@@ -21,7 +21,7 @@ HealthWatch is a personal health monitoring app designed for individuals with ch
 ## Installation
 1. Clone the repository
     ```sh
-    git clone [https://github.com/yourusername/HealthWatch.git](https://github.com/SEO-TECH-PROJECT1/PROJECT_2_HealthWatch.git)
+    git clone  https://github.com/SEO-TECH-PROJECT1/PROJECT_2_HealthWatch.git
     cd HealthWatch
     ```
 
