@@ -120,21 +120,24 @@ HealthWatch is a personal health monitoring app designed for individuals with ch
     - Set up user feedback mechanism
     - Analyze feedback and prioritize improvements
 
-# Project Structure
+## Project Structure
 
-This project is a Flask-based web application with the following structure:
+The application is organized as follows:
+
+```plaintext
 /project_root
-|-- flask_app.py        # Flask application
+|-- flask_app.py        # Main Flask application
 |-- /templates          # HTML templates for Flask
-    |-- base.html       # Base layout template
-    |-- index.html      # Home page with login or registration option
-    |-- dashboard.html  # User dashboard
-    |-- health.html     # Health recommendations page
-    |-- history.html    # Historical data analysis page
+|   |-- base.html       # Base layout template
+|   |-- index.html      # Home page with login or registration option
+|   |-- dashboard.html  # User dashboard
+|   |-- health.html     # Health recommendations page
+|   |-- history.html    # Historical data analysis page
 |-- /static             # Static files for Flask like CSS, JS
-    |-- styles.css      # CSS styles
-    |-- app.js          # JavaScript functions
+|   |-- styles.css      # CSS styles
+|   |-- app.js          # JavaScript functions
 |-- requirements.txt    # Python dependencies
+
 
 
 ## Key Components
