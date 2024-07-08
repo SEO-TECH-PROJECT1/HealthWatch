@@ -120,6 +120,40 @@ HealthWatch is a personal health monitoring app designed for individuals with ch
     - Set up user feedback mechanism
     - Analyze feedback and prioritize improvements
 
+# Project Structure
+
+This project is a Flask-based web application with the following structure:
+/project_root
+|-- flask_app.py        # Flask application
+|-- /templates          # HTML templates for Flask
+    |-- base.html       # Base layout template
+    |-- index.html      # Home page with login or registration option
+    |-- dashboard.html  # User dashboard
+    |-- health.html     # Health recommendations page
+    |-- history.html    # Historical data analysis page
+|-- /static             # Static files for Flask like CSS, JS
+    |-- styles.css      # CSS styles
+    |-- app.js          # JavaScript functions
+|-- requirements.txt    # Python dependencies
+
+
+## Key Components
+
+- **Flask**: The core framework used to create the web application.
+- **Flask-SQLAlchemy**: An extension for Flask that adds support for SQLAlchemy, useful for handling database operations.
+- **Werkzeug**: A comprehensive WSGI web application library, typically installed with Flask.
+- **gunicorn**: A Python WSGI HTTP Server for UNIX, providing a powerful interface for deploying Flask applications in production environments. It's not necessary for local development but recommended for production setups.
+
+## Installation
+
+To set up the project environment and install the necessary Python packages, run the following command:
+
+```bash
+pip install -r requirements.txt
+
+
+
+
 ## Requirements
 
 ```txt
