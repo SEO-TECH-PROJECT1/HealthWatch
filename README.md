@@ -137,7 +137,7 @@ The application is organized as follows:
 |   |-- styles.css      # CSS styles
 |   |-- app.js          # JavaScript functions
 |-- requirements.txt    # Python dependencies
-
+```
 
 
 ## Key Components
