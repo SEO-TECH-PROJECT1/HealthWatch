@@ -51,7 +51,6 @@ def register():
             return redirect(url_for('login'))
         
         except Exception as e:
-            # Log the exception (print to console for now, but you should use logging in production)
             print(f"Error during registration: {e}")
             flash('An error occurred during registration. Please try again.')
             return redirect(url_for('register'))
@@ -87,13 +86,11 @@ def dashboard():
     user = User.query.filter_by(username=session['username']).first()
     
     if request.method == 'POST':
-        # Handle profile updates
         user.email = request.form['email']
         user.bio = request.form['bio']
         if 'password' in request.form and request.form['password']:
             user.set_password(request.form['password'])
         
-        # Handle file upload
         if 'profile_picture' in request.files:
             file = request.files['profile_picture']
             if file and allowed_file(file.filename):

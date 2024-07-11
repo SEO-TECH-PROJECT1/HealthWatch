@@ -10,14 +10,11 @@
 </head>
 <body>
     <div class="navbar">
-        <!-- Navigation links for authenticated users -->
         {% if session['username'] %}
         <a href="{{ url_for('dashboard') }}">Dashboard</a>
         <a href="{{ url_for('health_recommendations') }}">Health Recommendations</a>
         <a href="{{ url_for('historical_data') }}">Historical Data</a>
         <a href="{{ url_for('logout') }}">Logout</a>
-        
-        <!-- End of navigation links for authenticated users -->
         {% else %}
         <a href="{{ url_for('login') }}">Login</a>
         <a href="{{ url_for('register') }}">Register</a>
@@ -25,7 +22,6 @@
     </div>
     <div class="content">
         {% block content %}
-        <!-- Content overwritten by each page -->
         {% endblock %}
     </div>
     {% if get_flashed_messages() %}
