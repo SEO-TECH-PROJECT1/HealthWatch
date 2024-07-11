@@ -1,8 +1,6 @@
 # File: File: HealthWatch/mock_fitbit_data.py
 # Example mock data mimicking Fitbit API responses for different metrics and user profile
 
-# Example mock data mimicking Fitbit API responses for different metrics and user profile
-
 mock_data = {
     "daily_steps": {
         "date": "2024-07-10",

@@ -2,7 +2,9 @@
 
 
 {% extends 'base.html' %}
+
 {% block title %}Dashboard{% endblock %}
+
 {% block content %}
 <div class="dashboard-container">
     <div class="user-profile">
@@ -11,12 +13,16 @@
         <form method="POST" enctype="multipart/form-data">
             <label for="email">Email:</label>
             <input type="email" id="email" name="email" value="{{ user.email }}" required>
+            
             <label for="bio">Bio:</label>
             <textarea id="bio" name="bio">{{ user.bio }}</textarea>
+            
             <label for="password">New Password:</label>
             <input type="password" id="password" name="password" placeholder="Leave blank to keep current password">
+            
             <label for="profile_picture">Profile Picture:</label>
             <input type="file" id="profile_picture" name="profile_picture" accept="image/*">
+            
             <button type="submit">Update Profile</button>
         </form>
     </div>
