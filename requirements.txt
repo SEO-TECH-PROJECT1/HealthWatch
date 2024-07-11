@@ -1,4 +1,7 @@
+# requirements.txt
 Flask==2.0.2
 Flask-SQLAlchemy==2.5.1
+SQLAlchemy==1.4.22
 Werkzeug==2.0.2
 gunicorn==20.1.0  # If deploying using Gunicorn, for example in a production environment
+

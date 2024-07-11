@@ -1,6 +1,8 @@
+
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
+from mock_fitbit_data import mock_data
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your_secret_key'
@@ -66,13 +68,28 @@ def dashboard():
 def health_recommendations():
     if 'username' not in session:
         return redirect(url_for('login'))
-    return render_template('health_recommendations.html')
+    try:
+        recommendations = mock_data['health_recommendations']
+    except KeyError:
+        flash('Health recommendations data not found.')
+        recommendations = []  # Provide an empty list if the data isn't available
+    return render_template('health_recommendations.html', recommendations=recommendations)
+
+
 
 @app.route('/historical_data')
 def historical_data():
     if 'username' not in session:
         return redirect(url_for('login'))
-    return render_template('historical_data.html')
+    try:
+        data = mock_data['historical_data']
+    except KeyError:
+        flash('Historical data not found.')
+        data = []  # Provide an empty list if the data isn't available
+    return render_template('historical_data.html', historical_data=data)
+
+
+
 
 @app.route('/logout')
 def logout():

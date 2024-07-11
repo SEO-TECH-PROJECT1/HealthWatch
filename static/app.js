@@ -1,3 +1,4 @@
+// File: app.js
 // Example JavaScript for enhancing form validation and interactivity
 
 document.addEventListener('DOMContentLoaded', function() {

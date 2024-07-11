@@ -1,0 +1,16 @@
+<!-- File: health_recommendations.html -->
+{% extends 'base.html' %}
+{% block content %}
+<div class="health-container">
+    <h2>Health Recommendations</h2>
+    {% if recommendations %}
+    <ul>
+        {% for recommendation in recommendations %}
+            <li>{{ recommendation }}</li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>No health recommendations available at this time.</p>
+    {% endif %}
+</div>
+{% endblock %}

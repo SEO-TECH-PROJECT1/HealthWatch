@@ -1,3 +1,4 @@
+# File: mock_fitbit_data.py
 # Example mock data mimicking Fitbit API responses for different metrics
 
 mock_data = {
@@ -25,5 +26,17 @@ mock_data = {
             "rem": 15,
             "awake": 5
         }
-    }
+    },
+    "health_recommendations": [
+        "Eat more greens and fruits for better vitamin intake.",
+        "Consider increasing your water intake to 8 glasses per day.",
+        "Regular exercise can help improve your heart health."
+    ],
+    "historical_data": [
+        {"date": "2024-07-01", "steps": 5000, "calories_burned": 250},
+        {"date": "2024-07-02", "steps": 7000, "calories_burned": 350},
+        {"date": "2024-07-03", "steps": 4500, "calories_burned": 225}
+    ]
 }
+
+# End of mock data file.
