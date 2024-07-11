@@ -66,13 +66,13 @@ def dashboard():
 def health_recommendations():
     if 'username' not in session:
         return redirect(url_for('login'))
-    return render_template('health_recommendations.html')
+    return render_template('health.html')
 
 @app.route('/historical_data')
 def historical_data():
     if 'username' not in session:
         return redirect(url_for('login'))
-    return render_template('historical_data.html')
+    return render_template('history.html')
 
 @app.route('/logout')
 def logout():
