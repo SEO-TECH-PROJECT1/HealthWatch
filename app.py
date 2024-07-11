@@ -37,12 +37,10 @@ def register():
         bio = request.form.get('bio', '')  # Optional bio
 
         try:
-            # Check if the username or email is already taken
             if User.query.filter_by(username=username).first() or User.query.filter_by(email=email).first():
                 flash('Username or email already taken!')
                 return redirect(url_for('register'))
             
-            # Create a new user
             new_user = User(username=username, email=email, profile_picture=profile_picture, bio=bio)
             new_user.set_password(password)
             db.session.add(new_user)
@@ -59,23 +57,33 @@ def register():
 
 @app.route('/')
 def index():
-    if 'username' in session:
-        return redirect(url_for('dashboard'))
-    return redirect(url_for('login'))
+    try:
+        if 'username' in session:
+            return redirect(url_for('dashboard'))
+        return redirect(url_for('login'))
+    except Exception as e:
+        print(f"Error on index: {e}")
+        flash('An error occurred. Please try again.')
+        return redirect(url_for('login'))
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    if 'username' in session:
-        return redirect(url_for('dashboard'))
-    if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
-        user = User.query.filter_by(username=username).first()
-        if user and user.check_password(password):
-            session['username'] = username
+    try:
+        if 'username' in session:
             return redirect(url_for('dashboard'))
-        flash('Invalid username or password!')
-    return render_template('login.html')
+        if request.method == 'POST':
+            username = request.form['username']
+            password = request.form['password']
+            user = User.query.filter_by(username=username).first()
+            if user and user.check_password(password):
+                session['username'] = username
+                return redirect(url_for('dashboard'))
+            flash('Invalid username or password!')
+        return render_template('login.html')
+    except Exception as e:
+        print(f"Error during login: {e}")
+        flash('An error occurred during login. Please try again.')
+        return redirect(url_for('login'))
 
 @app.route('/dashboard', methods=['GET', 'POST'])
 def dashboard():
@@ -83,47 +91,74 @@ def dashboard():
         flash('You are not logged in. Please log in to continue.')
         return redirect(url_for('login'))
     
-    user = User.query.filter_by(username=session['username']).first()
-    
-    if request.method == 'POST':
-        user.email = request.form['email']
-        user.bio = request.form['bio']
-        if 'password' in request.form and request.form['password']:
-            user.set_password(request.form['password'])
+    try:
+        user = User.query.filter_by(username=session['username']).first()
+        if not user:
+            flash('User profile not found.')
+            session.pop('username', None)  # Ensure session is cleared to prevent loops
+            return redirect(url_for('login'))
         
-        if 'profile_picture' in request.files:
-            file = request.files['profile_picture']
-            if file and allowed_file(file.filename):
-                filename = secure_filename(file.filename)
-                file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-                file.save(file_path)
-                user.profile_picture = file_path
+        if request.method == 'POST':
+            user.email = request.form['email']
+            user.bio = request.form['bio']
+            if 'password' in request.form and request.form['password']:
+                user.set_password(request.form['password'])
+            
+            if 'profile_picture' in request.files:
+                file = request.files['profile_picture']
+                if file and allowed_file(file.filename):
+                    filename = secure_filename(file.filename)
+                    file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+                    file.save(file_path)
+                    user.profile_picture = file_path
+            
+            db.session.commit()
+            flash('Profile updated successfully!')
+            return redirect(url_for('dashboard'))
         
-        db.session.commit()
-        flash('Profile updated successfully!')
-        return redirect(url_for('dashboard'))
+        return render_template('dashboard.html', user=user)
     
-    return render_template('dashboard.html', user=user)
+    except Exception as e:
+        print(f"Error fetching user data: {e}")
+        flash('An error occurred while fetching your profile information.')
+        return redirect(url_for('login'))
 
 @app.route('/health_recommendations')
 def health_recommendations():
     if 'username' not in session:
         return redirect(url_for('login'))
-    recommendations = mock_data.get('health_recommendations', [])
-    return render_template('health_recommendations.html', recommendations=recommendations)
+    
+    try:
+        recommendations = mock_data.get('health_recommendations', [])
+        return render_template('health_recommendations.html', recommendations=recommendations)
+    except Exception as e:
+        print(f"Error fetching health recommendations: {e}")
+        flash('An error occurred while fetching health recommendations.')
+        return redirect(url_for('dashboard'))
 
 @app.route('/historical_data')
 def historical_data():
     if 'username' not in session:
         return redirect(url_for('login'))
-    data = mock_data.get('historical_data', [])
-    return render_template('historical_data.html', historical_data=data)
+    
+    try:
+        data = mock_data.get('historical_data', [])
+        return render_template('historical_data.html', historical_data=data)
+    except Exception as e:
+        print(f"Error fetching historical data: {e}")
+        flash('An error occurred while fetching historical data.')
+        return redirect(url_for('dashboard'))
 
 @app.route('/logout')
 def logout():
-    session.pop('username', None)
-    flash('You have been logged out.')
-    return redirect(url_for('login'))
+    try:
+        session.pop('username', None)
+        flash('You have been logged out.')
+        return redirect(url_for('login'))
+    except Exception as e:
+        print(f"Error during logout: {e}")
+        flash('An error occurred during logout. Please try again.')
+        return redirect(url_for('login'))
 
 if __name__ == '__main__':
     with app.app_context():
