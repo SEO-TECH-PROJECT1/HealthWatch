@@ -1,8 +1,7 @@
-// File: app.js
+// File: File: HealthWatch/static/app.js
 // Example JavaScript for enhancing form validation and interactivity
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Example: Form validation for registration or login
     const loginForm = document.getElementById('login-form');
     if (loginForm) {
         loginForm.addEventListener('submit', function(event) {
@@ -10,11 +9,9 @@ document.addEventListener('DOMContentLoaded', function() {
             const password = document.getElementById('password').value;
             if (username.length === 0 || password.length === 0) {
                 alert('Please fill in both username and password.');
-                event.preventDefault(); // Prevent the form from submitting
+                event.preventDefault();
             }
         });
     }
-
-    // Add other event listeners or functions for different interactivities
 });
 

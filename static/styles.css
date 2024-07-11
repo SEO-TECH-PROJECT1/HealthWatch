@@ -1,5 +1,6 @@
-/* File: style.css*/
+/* File: HealthWatch/static/style.css*/
 /* General body styling */
+
 body {
     font-family: 'Arial', sans-serif;
     background-color: #f4f4f4;
@@ -8,7 +9,6 @@ body {
     color: #333;
 }
 
-/* Navbar styling */
 .navbar {
     background-color: #333;
     overflow: hidden;
@@ -30,7 +30,6 @@ body {
     color: black;
 }
 
-/* Form container styling */
 .form-container {
     width: 300px;
     margin: 50px auto;
@@ -51,7 +50,9 @@ body {
 }
 
 .form-container input[type="text"],
-.form-container input[type="password"] {
+.form-container input[type="password"],
+.form-container input[type="email"],
+.form-container textarea {
     width: 100%;
     padding: 10px;
     margin: 5px 0 20px 0;
@@ -74,7 +75,6 @@ body {
     opacity: 0.8;
 }
 
-/* Dashboard and content containers */
 .dashboard-container,
 .health-container,
 .history-container {
@@ -92,7 +92,6 @@ body {
     color: #333;
 }
 
-/* Flash messages styling */
 .flashes {
     width: 300px;
     margin: 20px auto;
@@ -103,7 +102,6 @@ body {
     text-align: center;
 }
 
-/* Utility classes */
 .clearfix::after {
     content: "";
     clear: both;

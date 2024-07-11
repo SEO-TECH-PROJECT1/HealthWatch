@@ -1,5 +1,9 @@
-# File: mock_fitbit_data.py
-# Example mock data mimicking Fitbit API responses for different metrics
+# File: File: HealthWatch/mock_fitbit_data.py
+# Example mock data mimicking Fitbit API responses for different metrics and user profile
+
+# Example mock data mimicking Fitbit API responses for different metrics and user profile
+
+# Example mock data mimicking Fitbit API responses for different metrics and user profile
 
 mock_data = {
     "daily_steps": {
@@ -36,7 +40,15 @@ mock_data = {
         {"date": "2024-07-01", "steps": 5000, "calories_burned": 250},
         {"date": "2024-07-02", "steps": 7000, "calories_burned": 350},
         {"date": "2024-07-03", "steps": 4500, "calories_burned": 225}
-    ]
+    ],
+    "user_profile": {
+        "username": "johndoe",
+        "email": "johndoe@example.com",
+        "profile_picture": "/static/images/profile_mockup.jpg",  # Assume profile picture is stored in static/images
+        "joined_date": "2022-01-15",
+        "bio": "Avid runner and tech enthusiast. Love to explore new technologies and innovations.",
+        "daily_steps": "7642 steps on 2024-07-10",
+        "heart_rate": "Average heart rate of 72 bpm on 2024-07-10",
+        "sleep_pattern": "480 minutes of sleep with 90% efficiency on 2024-07-10"
+    }
 }
-
-# End of mock data file.
