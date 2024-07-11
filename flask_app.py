@@ -105,6 +105,11 @@ def dashboard():
         session['access_token'] = access_token
     return render_template('dashboard.html')
 
+@app.route('/health_recommendations')
+def health_recommendations():
+    if 'username' not in session:
+        return redirect(url_for('login'))
+    return render_template('health.html')
 
 @app.route('/health')
 def health():

@@ -9,9 +9,9 @@
 <body>
     <div class="navbar">
         {% if session['username'] %}
-        <!-- <a href="{{ url_for('dashboard') }}">Dashboard</a> -->
-        <a href="{{ url_for('health') }}">Health Recommendations</a>
-        <a href="{{ url_for('history') }}">Historical Data</a>
+        <a href="{{ url_for('dashboard') }}">Dashboard</a>
+        <a href="{{ url_for('health_recommendations') }}">Health Recommendations</a>
+        <a href="{{ url_for('historical_data') }}">Historical Data</a>
         <a href="{{ url_for('logout') }}">Logout</a>
         {% else %}
         <a href="{{ url_for('login') }}">Login</a>
