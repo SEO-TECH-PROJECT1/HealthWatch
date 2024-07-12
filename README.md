@@ -1,20 +1,22 @@
 # HealthWatch - API Fitbit Tracker / Personal Trainer
 
-HealthWatch is a personal health monitoring app designed for individuals with chronic conditions, health enthusiasts, and seniors needing regular health tracking. It integrates with the Fitbit API to provide real-time data tracking and personalized recommendations.
+HealthWatch is a comprehensive personal health monitoring application designed for individuals with chronic conditions, health enthusiasts, and seniors who require regular health tracking. It leverages the power of Fitbit API integration to provide real-time data tracking and personalized health recommendations.
 
-## Features
-- Real-time health tracking using Fitbit API
-- Personal health dashboard with insights
-- Personalized health recommendations
-- Historical data analysis
+## Key Features
+
+- Real-time health data tracking using Fitbit API integration
+- Personalized health dashboard with 90-day activity insights
+- Customized health recommendations based on user data
+- Historical data analysis and visualization
 - User authentication and profile management
 
 ## Tech Stack
-- **Backend**: Flask, SQLite
-- **Frontend**: Streamlit
-- **APIs**: Fitbit API, ChatGPT API
-- **Deployment**: PythonAnywhere
-- **Testing**: GitHub Actions
+
+- Backend: Flask, SQLite
+- Frontend: HTML, CSS, JavaScript, Chart.js
+- APIs: Fitbit API (simulated in this version)
+- Database: SQLAlchemy
+- Authentication: Flask-Login
 
 
 
@@ -54,38 +56,96 @@ HealthWatch is a personal health monitoring app designed for individuals with ch
     flask run
     ```
 
-## Deployment
-- The application will be deployed on PythonAnywhere.
-- Configure your PythonAnywhere environment to use Flask and set up the required environment variables.
+## Usage
+
+1. Register for a new account or log in with existing credentials.
+2. Connect your Fitbit account (simulated in this version).
+3. View your personalized health dashboard with 90-day activity data.
+4. Explore the interactive graph with zoom and pan capabilities.
+5. Check your health recommendations and historical data analysis.
+6. Update your profile information as needed.
+
+## Project Structure
+
+The application is organized as follows:
+
+```plaintext
+/project_root
+|-- flask_app.py                        # Main Flask application
+|-- /templates                          # HTML templates for Flask
+|   |-- base.html                       # Base layout template
+|   |-- dashboard.html                  # User dashboard
+|   |-- health_recommendations.html     # Health recommendations page
+|   |-- historical_data.html            # Historical data page
+|   |-- login.html                      # Login page
+|   |-- register.html                   # Registration page
+|-- /static                             # Static files for Flask like CSS, JS
+|   |-- styles.css                      # CSS styles
+|   |-- app.js                          # JavaScript functions
+|   |--/uploads                         # User profile pictures
+|-- requirements.txt                    # Python dependencies
+
+## Requirements
+
+```txt
+Flask==2.0.2
+Flask-SQLAlchemy==2.5.1
+SQLAlchemy==1.4.22
+Werkzeug==2.0.2
+Flask-Migrate==3.1.0
+python-dotenv==0.19.1
+pytest==6.2.5
+gunicorn==20.1.0
+```
+
+## Key Components
+
+- `app.py`: Main Flask application file
+- `mock_fitbit_data.py`: Generates mock Fitbit data for demonstration
+- `static/styles.css`: Custom CSS styles
+- `static/app.js`: Custom JavaScript for interactive features
+- `templates/`: HTML templates for the application
 
 ## Testing
-- We use GitHub Actions for continuous integration and testing.
+- We use pytest for unit testing and GitHub Actions for continuous integration.
 - Tests are located in the `tests/` directory and can be run using:
     ```sh
-    pytest tests/
+    pytest
     ```
+- GitHub Actions will automatically run tests on every push and pull request to the main branch.
+
+## Contributing
+
+We welcome contributions to HealthWatch! Please read our contributing guidelines before submitting pull requests.
+
+## License
+
+This project is licensed under the MIT License. See the LICENSE file for details.
+
+## Acknowledgements
+
+- Flask: Web framework for Python
+- Chart.js: JavaScript charting library
+- Bootstrap: Frontend component library
 
 ## Milestones
 1. **Initial Setup and API Integration**
-    - [ ] Initialize the Flask project
-    - [ ] Set up SQLite database
-    - [ ] Integrate with Fitbit API
-    - [ ] User authentication and profile management
+    - [x] Initialize the Flask project
+    - [x] Set up SQLite database
+    - [x] Integrate with Fitbit API
+    - [x] User authentication and profile management
 
 2. **Frontend Development**
-    - [ ] Set up Streamlit for the frontend
-    - [ ] Develop the health dashboard
-    - [ ] Profile management interface
-    - [ ] Health data visualization
+    - [x] Set up Flask, html, css,javascript for the frontend
+    - [x] Develop the health dashboard
+    - [x] Profile management interface
+    - [x] Health data visualization
 
 3. **Testing and Deployment**
-    - [ ] Write unit tests for backend and frontend
-    - [ ] Set up GitHub Actions for CI/CD
+    - [x] Write unit tests for backend and frontend
+    - [x] Set up GitHub Actions for CI/CD
     - [ ] Deploy the application on PythonAnywhere
 
-4. **Feedback and Iteration**
-    - [ ] Collect user feedback
-    - [ ] Implement improvements based on feedback
 
 ## Issues to Create on GitHub
 1. **Setup Project Structure**
@@ -116,54 +176,4 @@ HealthWatch is a personal health monitoring app designed for individuals with ch
     - Configure deployment settings
     - Automate deployment with GitHub Actions
 
-7. **Feedback Collection**
-    - Set up user feedback mechanism
-    - Analyze feedback and prioritize improvements
 
-## Project Structure
-
-The application is organized as follows:
-
-```plaintext
-/project_root
-|-- flask_app.py        # Main Flask application
-|-- /templates          # HTML templates for Flask
-|   |-- base.html       # Base layout template
-|   |-- index.html      # Home page with login or registration option
-|   |-- dashboard.html  # User dashboard
-|   |-- health.html     # Health recommendations page
-|   |-- history.html    # Historical data analysis page
-|-- /static             # Static files for Flask like CSS, JS
-|   |-- styles.css      # CSS styles
-|   |-- app.js          # JavaScript functions
-|-- requirements.txt    # Python dependencies
-```
-
-
-## Key Components
-
-- **Flask**: The core framework used to create the web application.
-- **Flask-SQLAlchemy**: An extension for Flask that adds support for SQLAlchemy, useful for handling database operations.
-- **Werkzeug**: A comprehensive WSGI web application library, typically installed with Flask.
-- **gunicorn**: A Python WSGI HTTP Server for UNIX, providing a powerful interface for deploying Flask applications in production environments. It's not necessary for local development but recommended for production setups.
-
-## Installation
-
-To set up the project environment and install the necessary Python packages, run the following command:
-
-```bash
-pip install -r requirements.txt
-
-
-
-
-## Requirements
-
-```txt
-Flask==2.0.1
-SQLAlchemy==1.4.22
-Flask-Migrate==3.0.0
-Streamlit==0.85.0
-requests==2.25.1
-pytest==6.2.4
-python-dotenv==0.18.0
