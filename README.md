@@ -84,7 +84,7 @@ The application is organized as follows:
 |   |-- app.js                          # JavaScript functions
 |   |--/uploads                         # User profile pictures
 |-- requirements.txt                    # Python dependencies
-
+```
 ## Requirements
 
 ```txt
