@@ -1,17 +1,51 @@
-<!-- File: File: HealthWatch/templates/health_recommendations.html -->
+<!-- File: HealthWatch/templates/health_recommendations.html -->
 
 {% extends 'base.html' %}
+
+{% block title %}Health Recommendations{% endblock %}
+
 {% block content %}
-<div class="health-container">
-    <h2>Health Recommendations</h2>
-    {% if recommendations %}
-    <ul>
-        {% for recommendation in recommendations %}
-            <li>{{ recommendation }}</li>
+<div class="container">
+    <h1 class="my-4">Health Recommendations</h1>
+
+    <div class="row mb-4">
+        <!-- ... (keep the existing progress and health score sections) ... -->
+    </div>
+
+    <div class="accordion" id="recommendationsAccordion">
+        {% for week in recommendations %}
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="heading{{ week.week }}">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ week.week }}" aria-expanded="false" aria-controls="collapse{{ week.week }}">
+                    Week {{ week.week }} ({{ week.start_date }} to {{ week.end_date }}) - Focus: {{ week.focus_area }}
+                </button>
+            </h2>
+            <div id="collapse{{ week.week }}" class="accordion-collapse collapse" aria-labelledby="heading{{ week.week }}" data-bs-parent="#recommendationsAccordion">
+                <div class="accordion-body">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Recommendation</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for date, rec in week.daily_recommendations.items() %}
+                            <tr>
+                                <td>{{ date }}</td>
+                                <td>{{ rec }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
         {% endfor %}
-    </ul>
-    {% else %}
-    <p>No health recommendations available at this time.</p>
-    {% endif %}
+    </div>
 </div>
+
+<script>
+    // ... (keep the existing JavaScript) ...
+</script>
 {% endblock %}

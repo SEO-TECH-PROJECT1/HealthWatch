@@ -1,46 +1,105 @@
-<!-- File: File: HealthWatch/templates/dashboard.html -->
+<!-- File: HealthWatch/templates/dashboard.html -->
 
+<!-- File: HealthWatch/templates/dashboard.html -->
 
 {% extends 'base.html' %}
 
 {% block title %}Dashboard{% endblock %}
 
 {% block content %}
-<div class="dashboard-container">
-    <div class="user-profile">
-        <img src="{{ url_for('static', filename=user.profile_picture) }}" alt="Profile Picture" class="profile-picture">
-        <h2>Welcome back, {{ user.username }}!</h2>
-        <form method="POST" enctype="multipart/form-data">
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" value="{{ user.email }}" required>
-            
-            <label for="bio">Bio:</label>
-            <textarea id="bio" name="bio">{{ user.bio }}</textarea>
-            
-            <label for="password">New Password:</label>
-            <input type="password" id="password" name="password" placeholder="Leave blank to keep current password">
-            
-            <label for="profile_picture">Profile Picture:</label>
-            <input type="file" id="profile_picture" name="profile_picture" accept="image/*">
-            
-            <button type="submit">Update Profile</button>
-        </form>
+<div class="row">
+    <div class="col-md-4">
+        <div class="card mb-4">
+            <div class="card-body text-center">
+                <img src="{{ url_for('static', filename=user.profile_picture) }}" alt="Profile Picture" class="img-fluid rounded-circle mb-3" style="width: 150px; height: 150px; object-fit: cover;">
+                <h2 class="card-title">{{ user.username }}</h2>
+                <p class="card-text">{{ user.bio }}</p>
+                <p class="card-text"><small class="text-muted">Joined: {{ user.joined_date.strftime('%Y-%m-%d') }}</small></p>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <h3 class="card-title">Update Profile</h3>
+                <form method="POST" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email:</label>
+                        <input type="email" id="email" name="email" value="{{ user.email }}" required class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label for="bio" class="form-label">Bio:</label>
+                        <textarea id="bio" name="bio" class="form-control">{{ user.bio }}</textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">New Password:</label>
+                        <input type="password" id="password" name="password" placeholder="Leave blank to keep current password" class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label for="profile_picture" class="form-label">Profile Picture:</label>
+                        <input type="file" id="profile_picture" name="profile_picture" accept="image/*" class="form-control">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Update Profile</button>
+                </form>
+            </div>
+        </div>
     </div>
-    <div class="latest-activity">
-        <h3>Latest Activity</h3>
-        <ul>
-            <li>Daily Steps: {{ user.daily_steps }}</li>
-            <li>Heart Rate: {{ user.heart_rate }}</li>
-            <li>Sleep Pattern: {{ user.sleep_pattern }}</li>
-        </ul>
-    </div>
-    <div class="other-info">
-        <h3>Other Information</h3>
-        <p>Additional user-related data can go here.</p>
+    <div class="col-md-8">
+        <div class="card mb-4">
+            <div class="card-body">
+                <h3 class="card-title">Latest Activity</h3>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Daily Steps: {{ latest_activity.steps }}</li>
+                    <li class="list-group-item">Heart Rate: {{ latest_activity.heart_rate }}</li>
+                    <li class="list-group-item">Sleep Pattern: {{ latest_activity.sleep_pattern }}</li>
+                </ul>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <h3 class="card-title">Activity Graph</h3>
+                <canvas id="activityGraph"></canvas>
+            </div>
+        </div>
     </div>
 </div>
+
+<!-- dashboard.html activity graph  -->
+<script>
+    var ctx = document.getElementById('activityGraph').getContext('2d');
+    var activityGraph = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: {{ activity_labels | tojson }},
+            datasets: [{
+                label: 'Daily Steps',
+                data: {{ activity_data | tojson }},
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 2,
+                fill: false,
+                tension: 0.4
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Date'
+                    }
+                },
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Steps'
+                    }
+                }
+            },
+            animation: {
+                duration: 2000,
+                easing: 'easeOutQuart'
+            }
+        }
+    });
+</script>
 {% endblock %}
-
-
-
-

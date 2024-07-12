@@ -1,7 +1,4 @@
-/* File: HealthWatch/static/style.css*/
-
-
-/* General body styling */
+/* File: HealthWatch/static/styles.css */
 /* General body styling */
 body {
     font-family: 'Arial', sans-serif;
@@ -11,10 +8,12 @@ body {
     color: #333;
 }
 
+/* Navbar styling */
 .navbar {
     background-color: #333;
     overflow: hidden;
     color: white;
+    padding: 10px 0;
 }
 
 .navbar a {
@@ -32,6 +31,7 @@ body {
     color: black;
 }
 
+/* Form container styling */
 .form-container {
     width: 300px;
     margin: 50px auto;
@@ -77,6 +77,7 @@ body {
     opacity: 0.8;
 }
 
+/* Dashboard and content containers */
 .dashboard-container,
 .health-container,
 .history-container {
@@ -104,8 +105,73 @@ body {
     text-align: center;
 }
 
+/* Utility classes */
 .clearfix::after {
     content: "";
     clear: both;
     display: table;
+}
+
+/* Profile picture container */
+.profile-picture-container {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.profile-picture {
+    border-radius: 50%;
+    width: 10vw;
+    height: 10vw;
+    object-fit: cover;
+    max-width: 150px;
+    max-height: 150px;
+}
+
+/* Profile form styling */
+.profile-form .form-group {
+    margin-bottom: 15px;
+}
+
+.profile-form .form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.profile-form .form-group input,
+.profile-form .form-group textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* animation */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.card {
+    animation: fadeIn 1s ease-in;
+}
+
+.profile-picture {
+    transition: transform 0.3s ease;
+}
+
+.profile-picture:hover {
+    transform: scale(1.1);
+}
+
+.btn {
+    transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+}
+
+.btn:active {
+    transform: translateY(1px);
 }

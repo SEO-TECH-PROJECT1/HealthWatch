@@ -1,32 +1,153 @@
-<!-- File: File: HealthWatch/templates/historical_data.html -->
+<!-- File: HealthWatch/templates/historical_data.html -->
 
 {% extends 'base.html' %}
-{% block title %}Historical Data{% endblock %}
-{% block content %}
-<div class="history-container">
-    <h2>Historical Data Analysis</h2>
-    {% if historical_data %}
-    <table>
-        <thead>
-            <tr>
-                <th>Date</th>
-                <th>Steps</th>
-                <th>Calories Burned</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for entry in historical_data %}
-            <tr>
-                <td>{{ entry.date }}</td>
-                <td>{{ entry.steps }}</td>
-                <td>{{ entry.calories_burned }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    {% else %}
-    <p>No historical data available at this time.</p>
-    {% endif %}
-</div>
-{% endblock %}
 
+{% block title %}Historical Data{% endblock %}
+
+{% block content %}
+<div class="card mb-4">
+    <div class="card-body">
+        <h2 class="card-title">Historical Data Analysis</h2>
+        <canvas id="historicalDataChart"></canvas>
+    </div>
+</div>
+
+<div class="card mb-4">
+    <div class="card-body">
+        <h3 class="card-title">Statistics</h3>
+        <div class="row">
+            <div class="col-md-4">
+                <h5>Steps</h5>
+                <p>Average: <span id="avgSteps"></span></p>
+                <p>Max: <span id="maxSteps"></span></p>
+                <p>Min: <span id="minSteps"></span></p>
+            </div>
+            <div class="col-md-4">
+                <h5>Calories Burned</h5>
+                <p>Average: <span id="avgCalories"></span></p>
+                <p>Max: <span id="maxCalories"></span></p>
+                <p>Min: <span id="minCalories"></span></p>
+            </div>
+            <div class="col-md-4">
+                <h5>Active Minutes</h5>
+                <p>Average: <span id="avgActiveMinutes"></span></p>
+                <p>Max: <span id="maxActiveMinutes"></span></p>
+                <p>Min: <span id="minActiveMinutes"></span></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <h3 class="card-title">Data Table</h3>
+        <div class="table-responsive">
+            <table class="table table-striped" id="historicalDataTable">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Steps</th>
+                        <th>Calories Burned</th>
+                        <th>Active Minutes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const historicalData = {{ historical_data | tojson }};
+
+    // Prepare data for the chart
+    const dates = historicalData.map(entry => entry.date);
+    const steps = historicalData.map(entry => entry.steps);
+    const calories = historicalData.map(entry => entry.calories_burned);
+    const activeMinutes = historicalData.map(entry => entry.active_minutes);
+
+    // Create the chart
+    const ctx = document.getElementById('historicalDataChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: dates,
+            datasets: [
+                {
+                    label: 'Steps',
+                    data: steps,
+                    borderColor: 'rgb(75, 192, 192)',
+                    tension: 0.1
+                },
+                {
+                    label: 'Calories Burned',
+                    data: calories,
+                    borderColor: 'rgb(255, 99, 132)',
+                    tension: 0.1
+                },
+                {
+                    label: 'Active Minutes',
+                    data: activeMinutes,
+                    borderColor: 'rgb(153, 102, 255)',
+                    tension: 0.1
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                x: {
+                    display: true,
+                    title: {
+                        display: true,
+                        text: 'Date'
+                    }
+                },
+                y: {
+                    display: true,
+                    title: {
+                        display: true,
+                        text: 'Value'
+                    }
+                }
+            }
+        }
+    });
+
+    // Calculate and display statistics
+    function calculateStats(data) {
+        const avg = Math.round(data.reduce((a, b) => a + b) / data.length);
+        const max = Math.max(...data);
+        const min = Math.min(...data);
+        return { avg, max, min };
+    }
+
+    const stepsStats = calculateStats(steps);
+    const caloriesStats = calculateStats(calories);
+    const activeMinutesStats = calculateStats(activeMinutes);
+
+    document.getElementById('avgSteps').textContent = stepsStats.avg;
+    document.getElementById('maxSteps').textContent = stepsStats.max;
+    document.getElementById('minSteps').textContent = stepsStats.min;
+
+    document.getElementById('avgCalories').textContent = caloriesStats.avg;
+    document.getElementById('maxCalories').textContent = caloriesStats.max;
+    document.getElementById('minCalories').textContent = caloriesStats.min;
+
+    document.getElementById('avgActiveMinutes').textContent = activeMinutesStats.avg;
+    document.getElementById('maxActiveMinutes').textContent = activeMinutesStats.max;
+    document.getElementById('minActiveMinutes').textContent = activeMinutesStats.min;
+
+    // Populate the data table
+    const tableBody = document.querySelector('#historicalDataTable tbody');
+    historicalData.forEach(entry => {
+        const row = tableBody.insertRow();
+        row.insertCell(0).textContent = entry.date;
+        row.insertCell(1).textContent = entry.steps;
+        row.insertCell(2).textContent = entry.calories_burned;
+        row.insertCell(3).textContent = entry.active_minutes;
+    });
+</script>
+{% endblock %}
